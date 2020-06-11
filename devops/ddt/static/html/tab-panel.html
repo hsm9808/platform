@@ -1,0 +1,584 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+	<style type="text/css">
+		div.d1{
+   			padding-top:10px;
+		}
+	</style>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/static/materialize/css/materialize.min.css" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="/static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="/static/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="/static/js/Lightweight-Chart/cssCharts.css">
+
+</head>
+<body>
+    <div id="wrapper">
+         <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" href="/api/v1.0/index"><i class="large material-icons">insert_chart</i> <strong>Devops</strong></a>
+				
+		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b class="user-info"></b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </nav>
+		<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+<li><a href="#" onclick="logout();"><i class="fa fa-sign-out fa-fw"></i> 点击退出</a></li>
+</ul>
+	   <!--/. NAV TOP  -->
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a href="http://127.0.0.1:5000/index.html" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 机房资产<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/api/v1.0/show_device">资产查询展示</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/empty.html">资产录入</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="ui-elements.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 容器管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/api/v1.0/show_container">集群容器列表</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/pod-create.html">创建pod</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/image.html">镜像更新</a>
+                            </li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="/api/v1.0/show_msg" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 业务状态</a>
+                    </li>
+                    <li>
+                        <a href="/api/v1.0/jenkins-info" class="active-menu waves-effect waves-dark"><i class="fa fa-qrcode"></i> 代码发布</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/api/v1.0/show_table" class="waves-effect waves-dark"><i class="fa fa-table"></i> 监控列表</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+			  <div class="header"> 
+
+
+                  	<div class="d1" style="width:800px;margin:10px">
+                        <ul id="myTab" class="nav nav-tabs">
+                            <li><a href="#build" data-toggle="tab">构建Job</a></li>
+                            <li><a href="#log" data-toggle="tab">查询Job日志</a></li>
+                            <li><a href="#userlog" data-toggle="tab">用户操作日志</a></li>
+                        </ul>
+
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade in active" id="build">
+                                <div class="card">
+                                    <div class="card-action">
+                                        发布应用
+                                    </div>
+                                    <div class="card-content">
+                                        <ul class="collapsible" data-collapsible="accordion">
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>考勤</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name1" type="checkbox" value="hsm1" id="test1"/>
+                                                    <label for="test1">hsm1</label>
+                                                    <input name="bd_name1" type="checkbox" value="hsm2" id="test2"/>
+                                                    <label for="test2">hsm2</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-apis" id="test3"/>
+                                                    <label for="test3">apis</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-export-Smooth" id="test4"/>
+                                                    <label for="test4">export</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-bops" id="test5"/>
+                                                    <label for="test5">bops</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-异步打卡" id="test6"/>
+                                                    <label for="test6">machine打卡</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-考勤机" id="test7"/>
+                                                    <label for="test7">realand考勤机</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-consumer" id="test8"/>
+                                                    <label for="test8">consumer</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-wqkq" id="test9"/>
+                                                    <label for="test9">wqkq</label>
+                                                    <input name="bd_name1" type="checkbox" value="kq-vip" id="test10"/>
+                                                    <label for="test10">vip</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dkq" id="test11"/>
+                                                    <label for="test11">钉钉kq</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dm-kq" id="test12"/>
+                                                    <label for="test12">点卯kq</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>人事</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name1" type="checkbox" value="hmc-web-Smooth" id="test13"/>
+                                                    <label for="test13">web</label>
+                                                    <input name="bd_name1" type="checkbox" value="hmc-apis" id="test14"/>
+                                                    <label for="test14">apis</label>
+                                                    <input name="bd_name1" type="checkbox" value="hmc-export-Smooth" id="test15"/>
+                                                    <label for="test15">export</label>
+                                                    <input name="bd_name1" type="checkbox" value="hmc-vip" id="test16"/>
+                                                    <label for="test16">vip</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dhmc" id="test17"/>
+                                                    <label for="test17">钉钉hmc</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dm-hmc" id="test18"/>
+                                                    <label for="test18">点卯hmc</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>薪资</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name1" type="checkbox" value="xz-web-Smooth" id="test42"/>
+                                                    <label for="test42">web</label>
+                                                    <input name="bd_name1" type="checkbox" value="xz-apis" id="test43"/>
+                                                    <label for="test43">apis</label>
+                                                    <input name="bd_name1" type="checkbox" value="xz-export-Smooth" id="test44"/>
+                                                    <label for="test44">export</label>
+                                                    <input name="bd_name1" type="checkbox" value="salary" id="test45"/>
+                                                    <label for="test45">salary</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dxz" id="test46"/>
+                                                    <label for="test46">钉钉xz</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>排班</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name1" type="checkbox" value="sch" id="test47"/>
+                                                    <label for="test47">sch</label>
+                                                    <input name="bd_name1" type="checkbox" value="sch-apis" id="test19"/>
+                                                    <label for="test19">apis</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dsch" id="test20"/>
+                                                    <label for="test20">钉钉sch</label>
+
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>人员选择器</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name1" type="checkbox" value="hmc-web-Smooth" id="test21"/>
+                                                    <label for="test21">macan</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dmacan" id="test22"/>
+                                                    <label for="test22">钉钉macan</label>
+                                                    <input name="bd_name1" type="checkbox" value="k8s-dm-macan" id="test23"/>
+                                                    <label for="test23">点卯macan</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>UI1.0</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-ac" id="test24"/>
+                                                    <label for="test24">ac</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-at" id="test25"/>
+                                                    <label for="test25">at</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-app" id="test26"/>
+                                                    <label for="test26">app</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-ers" id="test27"/>
+                                                    <label for="test27">ers</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-fo" id="test28"/>
+                                                    <label for="test28">fo</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-hr" id="test29"/>
+                                                    <label for="test29">hr</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-in" id="test30"/>
+                                                    <label for="test30">in</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-in-app" id="test31"/>
+                                                    <label for="test31">in-app</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-sa" id="test32"/>
+                                                    <label for="test32">sa</label>
+                                                    <input name="bd_name1" type="checkbox" value="webfront-shared" id="test33"/>
+                                                    <label for="test33">shared</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>UI2.0</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-ac" id="test34"/>
+                                                    <label for="test34">ac</label>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-at" id="test35"/>
+                                                    <label for="test35">at</label>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-ers" id="test36"/>
+                                                    <label for="test36">ers</label>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-fo" id="test37"/>
+                                                    <label for="test37">fo</label>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-hr" id="test38"/>
+                                                    <label for="test38">hr</label>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-in" id="test39"/>
+                                                    <label for="test39">in</label>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-sa" id="test40"/>
+                                                    <label for="test40">sa</label>
+                                                    <input name="bd_name1" type="checkbox" value="nwebfront-shared" id="test41"/>
+                                                    <label for="test41">shared</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                          </ul>
+                                        <div class="modal-footer">
+                                                <button class="btn btn-primary" data-dismiss="modal" id="dosubmit1" href="/build?bd_name1={{ bd_name1 }}">发布</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-action">
+                                        回滚应用
+                                    </div>
+                                    <div class="card-content">
+                                        <ul class="collapsible" data-collapsible="accordion">
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>考勤</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name2" type="checkbox" value="hsm1" id="test51"/>
+                                                    <label for="test51">app</label>
+                                                    <input name="bd_name2" type="checkbox" value="hsm2" id="test52"/>
+                                                    <label for="test52">web</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-apis" id="test53"/>
+                                                    <label for="test53">apis</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-export-Smooth" id="test54"/>
+                                                    <label for="test54">export</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-bops" id="test55"/>
+                                                    <label for="test55">bops</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-异步打卡" id="test56"/>
+                                                    <label for="test56">machine打卡</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-考勤机" id="test57"/>
+                                                    <label for="test57">realand考勤机</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-consumer" id="test58"/>
+                                                    <label for="test58">consumer</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-wqkq" id="test59"/>
+                                                    <label for="test59">wqkq</label>
+                                                    <input name="bd_name2" type="checkbox" value="kq-vip" id="test60"/>
+                                                    <label for="test60">vip</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dkq" id="test61"/>
+                                                    <label for="test61">钉钉kq</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dm-kq" id="test62"/>
+                                                    <label for="test62">点卯kq</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>人事</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name2" type="checkbox" value="hmc-web-Smooth" id="test63"/>
+                                                    <label for="test63">web</label>
+                                                    <input name="bd_name2" type="checkbox" value="hmc-apis" id="test64"/>
+                                                    <label for="test64">apis</label>
+                                                    <input name="bd_name2" type="checkbox" value="hmc-export-Smooth" id="test65"/>
+                                                    <label for="test65">export</label>
+                                                    <input name="bd_name2" type="checkbox" value="hmc-vip" id="test66"/>
+                                                    <label for="test66">vip</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dhmc" id="test67"/>
+                                                    <label for="test67">钉钉hmc</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dm-hmc" id="test68"/>
+                                                    <label for="test68">点卯hmc</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>薪资</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name2" type="checkbox" value="xz-web-Smooth" id="test69"/>
+                                                    <label for="test69">web</label>
+                                                    <input name="bd_name2" type="checkbox" value="xz-apis" id="test70"/>
+                                                    <label for="test70">apis</label>
+                                                    <input name="bd_name2" type="checkbox" value="xz-export-Smooth" id="test71"/>
+                                                    <label for="test71">export</label>
+                                                    <input name="bd_name2" type="checkbox" value="salary" id="test72"/>
+                                                    <label for="test72">salary</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dxz" id="test73"/>
+                                                    <label for="test73">钉钉xz</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>排班</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name2" type="checkbox" value="sch" id="test74"/>
+                                                    <label for="test74">sch</label>
+                                                    <input name="bd_name2" type="checkbox" value="sch-apis" id="test75"/>
+                                                    <label for="test75">apis</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dsch" id="test76"/>
+                                                    <label for="test76">钉钉sch</label>
+
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>人员选择器</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name2" type="checkbox" value="hmc-web-Smooth" id="test77"/>
+                                                    <label for="test77">macan</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dmacan" id="test78"/>
+                                                    <label for="test78">钉钉macan</label>
+                                                    <input name="bd_name2" type="checkbox" value="k8s-dm-macan" id="test79"/>
+                                                    <label for="test79">点卯macan</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>UI1.0</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-ac" id="test80"/>
+                                                    <label for="test80">ac</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-at" id="test81"/>
+                                                    <label for="test81">at</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-app" id="test82"/>
+                                                    <label for="test82">app</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-ers" id="test83"/>
+                                                    <label for="test83">ers</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-fo" id="test84"/>
+                                                    <label for="test84">fo</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-hr" id="test85"/>
+                                                    <label for="test85">hr</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-in" id="test86"/>
+                                                    <label for="test86">in</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-in-app" id="test87"/>
+                                                    <label for="test87">in-app</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-sa" id="test88"/>
+                                                    <label for="test88">sa</label>
+                                                    <input name="bd_name2" type="checkbox" value="webfront-shared" id="test89"/>
+                                                    <label for="test89">shared</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                            <li>
+                                              <div class="collapsible-header"><i class="material-icons">filter_drama</i>UI2.0</div>
+                                              <div class="collapsible-body">
+                                                  <p>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-ac" id="test90"/>
+                                                    <label for="test90">ac</label>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-at" id="test91"/>
+                                                    <label for="test91">at</label>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-ers" id="test92"/>
+                                                    <label for="test92">ers</label>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-fo" id="test93"/>
+                                                    <label for="test93">fo</label>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-hr" id="test94"/>
+                                                    <label for="test94">hr</label>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-in" id="test95"/>
+                                                    <label for="test95">in</label>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-sa" id="test96"/>
+                                                    <label for="test96">sa</label>
+                                                    <input name="bd_name2" type="checkbox" value="nwebfront-shared" id="test97"/>
+                                                    <label for="test97">shared</label>
+                                                  </p>
+                                              </div>
+                                            </li>
+                                          </ul>
+                                        <div class="modal-footer">
+                                                <button class="btn btn-primary" data-dismiss="modal" id="dosubmit2" href="/build?bd_name2={{ bd_name2 }}">回滚</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="log">
+                                <p>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Job name
+                                                </th>
+                                                <th>
+                                                    上次构建日志网址
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for msg in msg_list %}
+                                                <tr class="info">
+                                                <td>
+                                                    {{ msg["jenkins_name"] }}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ msg["consul_url"] }}console" target="_blank">{{ msg["consul_url"] }}console</a>
+                                                </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </p>
+                            </div>
+                            <div class="tab-pane fade" id="userlog">
+                                <p>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    操作用户
+                                                </th>
+                                                <th>
+                                                    job名称
+                                                </th>
+                                                <th>
+                                                    操作开始时间
+                                                </th>
+                                                <th>
+                                                    操作结果
+                                                </th>
+                                                <th>
+                                                    <a href="/api/v1.0/jenkins-check">点击重新获取状态</a>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                {% for msg in msg_list %}
+                                                <tr class="info">
+                                                <td>
+                                                    {{ msg["username"] }}
+                                                </td>
+                                                <td>
+                                                    {{ msg["jenkins_name"] }}
+                                                </td>
+                                                <td>
+                                                    {{ msg["start_time"] }}
+                                                </td>
+                                                <td>
+                                                    {% if msg["result"] == 'SUCCESS' %}
+                                                        {{ "构建成功" }}
+                                                    {% elif msg["result"] == 'FAILURE' %}
+                                                        {{ "构建失败" }}
+                                                    {% else %}
+                                                        {{ "构建中,请稍后查询JOB日志获取结果" }}
+                                                    {% endif %}
+                                                </td>
+                                                </tr>
+                                                {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+              </div>
+
+			 <!-- /. PAGE INNER  -->
+        </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="/static/js/jquery-1.10.2.js"></script>
+	
+	<!-- Bootstrap Js -->
+    <script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/ddt/index.js"></script>
+	<script src="/static/materialize/js/materialize.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="/static/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="/static/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="/static/js/morris/morris.js"></script>
+	
+	
+	<script src="/static/js/easypiechart.js"></script>
+	<script src="/static/js/easypiechart-data.js"></script>
+	
+	 <script src="/static/js/Lightweight-Chart/jquery.chart.js"></script>
+     <!-- Custom Js -->
+    <script src="/static/js/custom-scripts.js"></script>
+    <script>
+    $('#dosubmit1').click(function(){
+        var bd_names = new Array();//定义一个空数组
+
+        $("input[name='bd_name1']:checked").each(function(i){//把所有被选中的复选框的值存入数组
+            bd_names.push($(this).val());
+        });
+
+        str = JSON.stringify(bd_names);
+        $.ajax({
+             type: 'get',
+        url: '/api/v1.0/jenkins-build',
+        data: { bd_name1: str  },
+        dataType: 'json'
+        })
+    })
+
+    </script>
+    <script>
+    $('#dosubmit2').click(function(){
+        var bd_names = new Array();//定义一个空数组
+
+        $("input[name='bd_name2']:checked").each(function(i){//把所有被选中的复选框的值存入数组
+            bd_names.push($(this).val());
+        });
+        str = JSON.stringify(bd_names);
+        $.ajax({
+             type: 'get',
+        url: '/api/v1.0/jenkins-rollback',
+        data: { bd_name2: str  },
+        dataType: 'json'
+        })
+    })
+
+    </script>
+
+	<script>
+	$(document).ready(function(){
+	 $('ul.tabs').tabs();
+		$('.collapsible').collapsible({
+		  accordion: false, // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+		  onOpen: function(el) { alert('Open'); }, // Callback for Collapsible open
+		  onClose: function(el) { alert('Closed'); } // Callback for Collapsible close
+		}
+	  );
+	});
+	</script>
+ 
+
+</body>
+
+</html>

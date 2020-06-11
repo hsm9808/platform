@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/static/materialize/css/materialize.min.css" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="/static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="/static/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="/static/js/Lightweight-Chart/cssCharts.css">
+    <style>
+        .btn1{
+            margin: 20px 120px;
+            width: 80px;
+        }
+        .content1{
+            margin: 10px auto;
+            display: none;
+        }
+        .btn1.active{
+            background-color: pink;
+        }
+        .content1.show{
+            display:block;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" href="/api/v1.0/index"><i class="large material-icons">insert_chart</i> <strong>Devops</strong></a>
+				
+		    <div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+                </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b class="user-info"></b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </nav>
+		<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+<li><a href="#" onclick="logout();"><i class="fa fa-sign-out fa-fw"></i>点击退出</a></li>
+</ul>
+	   <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a class="waves-effect waves-dark" href="http://127.0.0.1:5000/index.html"><i class="fa fa-dashboard"></i> 机房资产<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/api/v1.0/show_device">资产查询展示</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/empty.html">资产录入</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="ui-elements.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 容器管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/api/v1.0/show_container">集群容器列表</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/pod-create.html">创建pod</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/image.html">镜像更新</a>
+                            </li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="/api/v1.0/show_msg" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 业务状态</a>
+                    </li>
+                    <li>
+                        <a href="/api/v1.0/jenkins-info" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 代码发布</a>
+                    </li>
+                    <li>
+                        <a href="/api/v1.0/show_table" class="waves-effect waves-dark"><i class="fa fa-table"></i> 监控列表</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		    <div class="header">
+                        <h1 class="page-header">
+                            服务器状态
+                        </h1>
+                        <p>
+                            <button class="btn1 active">云服务器状态</button>
+                            <button class="btn1">虚拟机状态</button>
+                        </p>
+          </div>
+            <div class="content1 show">
+                <div id="page-inner">
+                {% for msg in base_messages %}
+                <div class="row">
+			        <div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="card-panel text-center">
+						<h4>cpu负载</h4>
+						<div class="easypiechart" id="easypiechart-red" data-percent="{{ msg["CPU_LOAD"] }}" ><span class="percent">{{ msg["CPU_LOAD"] }}%</span>
+						</div>
+					</div>
+			</div>
+			        <div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="card-panel text-center">
+						<h4>磁盘使用率</h4>
+						<div class="easypiechart" id="easypiechart-blue" data-percent="{{ msg["DISK"] }}" ><span class="percent">{{ msg["DISK"] }}</span>
+						</div>
+					</div>
+			</div>
+			    </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+
+						<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image red">
+						<i class="fa fa-eye fa-5x"></i>
+						</div>
+						<div class="card-stacked">
+						<div class="card-content">
+						<h3>{{ msg["USED"] }}m</h3>
+						</div>
+						<div class="card-action">
+						<strong>已用内存大小</strong>
+						</div>
+						</div>
+						</div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+
+						<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image blue">
+						<i class="fa fa-eye fa-5x"></i>
+						</div>
+						<div class="card-stacked">
+						<div class="card-content">
+						<h3>{{ msg["FREE"] }}m</h3>
+						</div>
+						<div class="card-action">
+						<strong>可用内存大小</strong>
+						</div>
+						</div>
+						</div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+            <div class="content1">
+                <div id="page-inner">
+                {% for msg in vmbase_messages %}
+                <div class="row">
+			        <div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="card-panel text-center">
+						<h4>cpu负载</h4>
+						<div class="easypiechart" id="easypiechart-orange" data-percent="{{ msg["CPU_LOAD"] }}" ><span class="percent">{{ msg["CPU_LOAD"] }}%</span>
+						</div>
+					</div>
+			</div>
+			        <div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="card-panel text-center">
+						<h4>磁盘使用率</h4>
+						<div class="easypiechart" id="easypiechart-teal" data-percent="{{ msg["DISK"] }}" ><span class="percent">{{ msg["DISK"] }}</span>
+						</div>
+					</div>
+			</div>
+			    </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+
+						<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image red">
+						<i class="fa fa-eye fa-5x"></i>
+						</div>
+						<div class="card-stacked">
+						<div class="card-content">
+						<h3>{{ msg["USED"] }}m</h3>
+						</div>
+						<div class="card-action">
+						<strong>已用内存大小</strong>
+						</div>
+						</div>
+						</div>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+
+						<div class="card horizontal cardIcon waves-effect waves-dark">
+						<div class="card-image blue">
+						<i class="fa fa-eye fa-5x"></i>
+						</div>
+						<div class="card-stacked">
+						<div class="card-content">
+						<h3>{{ msg["FREE"] }}m</h3>
+						</div>
+						<div class="card-action">
+						<strong>可用内存大小</strong>
+						</div>
+						</div>
+						</div>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+
+            <script>
+　　　　　//获取页面的每个按钮
+                var btns = document.getElementsByClassName("btn1");
+        　　　　　//获取内容盒子
+                var contents = document.getElementsByClassName("content1");
+
+        　　　　　//遍历每个按钮为其添加点击事件
+                for(var i=0;i<btns.length;i++){
+                    btns[i].index = i;
+                    btns[i].onclick = function(){
+        　　　　　　　　　　//对当前点击的按钮赋予active类名及显示当前按钮对应的内容
+                        for(var j=0;j<btns.length;j++){
+                            btns[j].className = btns[j].className.replace(' active', '').trim();
+                            contents[j].className = contents[j].className.replace(' show', '').trim();
+                        }
+                        this.className = this.className + ' active';
+                        contents[this.index].className = contents[this.index].className + ' show';
+                    };
+
+                }
+
+
+            </script>
+
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="/static/js/jquery-1.10.2.js"></script>
+
+	<!-- Bootstrap Js -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+	<script src="/static/materialize/js/materialize.min.js"></script>
+    <script src="/static/js/ddt/index.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="/static/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="/static/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="/static/js/morris/morris.js"></script>
+
+
+	<script src="/static/js/easypiechart.js"></script>
+	<script src="/static/js/easypiechart-data.js"></script>
+
+	 <script src="/static/js/Lightweight-Chart/jquery.chart.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/static/js/custom-scripts.js"></script>
+
+
+
+</body>
+
+</html>

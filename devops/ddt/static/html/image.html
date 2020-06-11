@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/static/materialize/css/materialize.min.css" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="/static/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="/static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="/static/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="/static/js/Lightweight-Chart/cssCharts.css"> 
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" href="/api/v1.0/index"><i class="large material-icons">insert_chart</i> <strong>Devops</strong></a>
+				
+		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b class="user-info"></b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </nav>
+		<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+<li><a href="#" onclick="logout();"><i class="fa fa-sign-out fa-fw"></i> 点击退出</a></li>
+</ul>
+	   <!--/. NAV TOP  -->
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a href="http://127.0.0.1:5000/index.html" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 机房资产<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/api/v1.0/show_device">资产查询展示</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/empty.html">资产变更录入</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="ui-elements.html" class="active-menu waves-effect waves-dark"><i class="fa fa-desktop"></i> 容器管理<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/api/v1.0/show_container">集群容器列表</a>
+                            </li>
+                            <li>
+                                <a href="/static/html/pod-create.html">创建pod</a>
+                            </li>
+                            <li>
+                                <a href="image.html">镜像更新</a>
+                            </li>
+                        </ul>
+                    </li>
+					<li>
+                        <a href="/api/v1.0/show_msg" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 业务状态</a>
+                    </li>
+                    <li>
+                        <a href="/api/v1.0/jenkins-info" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 代码发布</a>
+                    </li>
+                    <li>
+                        <a href="/api/v1.0/show_table" class="waves-effect waves-dark"><i class="fa fa-table"></i> 生产服务资源</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-action">
+                    更新镜像
+                    </div>
+                    <div class="card-content">
+                        <form class="col s12">
+                          <div class="row">
+                            <div class="input-field col s12">
+                                      <input id="namespace" type="text" class="validate">
+                                      <label for="namespace">命名空间</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                                      <input id="name" type="text" class="validate">
+                                      <label for="name">容器名称</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                                      <input id="depository" type="text" class="validate">
+                                      <label for="depository">仓库名</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                                      <input id="detail" type="text" class="validate">
+                                      <label for="detail">版本信息</label>
+                            </div>
+                          </div>
+                        </form>
+                    <div class="clearBoth"></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" id="dosubmit4" href="/image_update?msg={{ msg }}">更新</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+    </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="/static/js/jquery-1.10.2.js"></script>
+	
+	<!-- Bootstrap Js -->
+    <script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/ddt/index.js"></script>
+	<script src="/static/materialize/js/materialize.min.js"></script>
+	
+    <!-- Metis Menu Js -->
+    <script src="/static/js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="/static/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="/static/js/morris/morris.js"></script>
+	
+	
+	<script src="/static/js/easypiechart.js"></script>
+	<script src="/static/js/easypiechart-data.js"></script>
+	
+	 <script src="/static/js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="/static/js/custom-scripts.js"></script>
+
+    <script>
+    $('#dosubmit4').click(function(){
+        var image_msg = new Array();//定义一个空数组
+
+        $("input[type='text']").each(function(){//
+            image_msg.push($(this).val());
+        });
+        str = JSON.stringify(image_msg);
+        $.ajax({
+               type: 'get',
+        url: '/api/v1.0/image_update',
+        data: { msg: str  },
+        dataType: 'json',
+                success:function (data) {
+                    alert("更新成功")
+                }
+        })
+    })
+    </script>
+
+</body>
+
+</html>
