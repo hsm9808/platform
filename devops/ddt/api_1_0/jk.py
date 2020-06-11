@@ -7,7 +7,7 @@ from ddt import db
 
 url = 'http://123.56.80.143:8088'
 username = 'admin'
-password = 'admin'  #api-token
+password = 'password'  #利用api-token更好
 timeout = 100
 server = jenkins.Jenkins(url,username,password,timeout)
 server.get_whoami()
